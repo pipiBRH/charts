@@ -1,0 +1,40 @@
+{{ if .Values.cronjobs }}
+apiVersion: v1
+kind: List
+items:
+{{- range $cronjob := .Values.cronjobs }}
+  - apiVersion: batch/v1beta1
+    kind: CronJob
+    metadata:
+      name: cronjob-{{ $cronjob.name }}
+      labels:
+        partner: {{ $.Values.partner }}
+        app: {{ $.Values.app }}
+        env: {{ $.Values.labels.env }}
+        component: cron
+    spec:
+      schedule: {{ .schedule | quote}}
+      concurrencyPolicy: {{ .concurrencyPolicy }}
+      startingDeadlineSeconds: {{ .startingDeadlineSeconds }}
+      successfulJobsHistoryLimit: {{ .successfulJobsHistoryLimit }}
+      jobTemplate:
+        spec:
+          backoffLimit: {{ .backoffLimit }}
+          template:
+            metadata:
+              annotations:
+                linkerd.io/inject: disabled
+            spec:
+              restartPolicy: {{ .restartPolicy }}
+              containers:
+                - image: {{ $.Values.appImage.repository }}:{{ $.Values.imageTag }}
+{{ toYaml $.Values.appImage.config | indent 18 }}
+                  terminationMessagePolicy: {{ .terminationMessagePolicy }}
+                  command:
+{{ toYaml .command | indent 20 }}
+                  args:
+{{ toYaml .args | indent 20 }}
+              volumes:
+{{ toYaml $.Values.volumes | indent 16 }}
+{{- end }}
+{{ end }}

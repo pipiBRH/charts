@@ -1,0 +1,19 @@
+apiVersion: v1
+entries:
+  yahoo-demo-eks:
+  - apiVersion: v1
+    created: "2020-02-15T15:17:09.789145+08:00"
+    digest: f4cef3833e17998572241913f0b65ecb4f5b8f74775946b8b952da6c1260aa50
+    keywords:
+    - yahoo
+    - demo
+    - eks
+    - aws
+    maintainers:
+    - email: ethan.huang@verizonmedia.com
+      name: ehuang02
+    name: yahoo-demo-eks
+    urls:
+    - yahoo-demo-eks-1.0.0.tgz
+    version: 1.0.0
+generated: "2020-02-15T15:17:09.787227+08:00"

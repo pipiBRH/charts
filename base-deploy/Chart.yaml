@@ -1,0 +1,12 @@
+name: yahoo-demo-eks
+version: 1.0.0
+keywords:
+  - yahoo
+  - demo
+  - eks
+  - aws
+  - partner
+maintainers:
+  - name: ehuang02
+    email: ethan.huang@verizonmedia.com
+engine: gotpl
